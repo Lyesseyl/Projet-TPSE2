@@ -1,3 +1,4 @@
+Noms: Messaoudi Ilyes et Hadad Abderrezak isil groupe 02 
 
 Projet : Synchronisation des Bus de Transport dans un Tunnel
 
@@ -27,3 +28,28 @@ Tâches :
 - Envoyer le lien du repo GitHub contenant votre projet, avec la liste des étudiants ayant participé.
 - Vérifier les quatre conditions de l’exclusion mutuelle.
 - Rendre sur papier le jour du TP.
+
+Vérification des quatre conditions de l’exclusion mutuelle :
+Exclusion mutuelle
+Le tunnel ne peut être utilisé que par des bus circulant dans un seul sens à la fois. L'accès au tunnel est contrôlé par des vérifications protégées par un mutex (pthread_mutex_t), garantissant qu'aucun bus en sens opposé ne peut y entrer simultanément.
+
+Avancement
+Les bus qui veulent entrer dans le tunnel peuvent le faire dès que le tunnel est libre dans leur direction. Aucun bus ne reste bloqué indéfiniment si le tunnel est disponible.
+
+Attente bornée (Bounded Waiting)
+Un bus ne peut pas être bloqué indéfiniment par d'autres bus. Une fois qu’un groupe de bus termine son passage, les bus du sens opposé ont la possibilité d’entrer, garantissant une alternance et évitant la famine.
+
+Progrès
+Si plusieurs bus veulent entrer dans le tunnel et que le tunnel est vide, l’un d’eux finira toujours par progresser. Aucune ressource partagée ne reste inutilisée si elle est disponible.
+
+Cet algorithme peut-il être retenu comme solution pour protéger le tunnel ?
+Oui.
+L’algorithme utilise correctement les threads et la synchronisation via mutex, ce qui garantit que :
+
+le tunnel n’est jamais utilisé par des bus de directions opposées en même temps,
+
+plusieurs bus peuvent entrer dans le tunnel s’ils vont dans le même sens,
+
+l’accès reste équitable grâce à une attente alternée,
+
+les quatre conditions de l’exclusion mutuelle sont respectées.
